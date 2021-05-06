@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CDN TOM TOM -->
+    <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.5.0/maps/maps.css'>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.5.0/maps/maps-web.min.js"></script>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.5.0/services/services-web.min.js"></script>
+    <!-- /CDN TOM TOM -->
+    <link rel="stylesheet" href="css/style.css">
+    <title>Visualizzazine mappa da TomTom</title>
+</head>
+<body>
+    <!-- Logo-->
+    <img style="width:200px"
+        src="https://surveymonkey-assets.s3.amazonaws.com/survey/166647465/d3d9a7f3-510f-471a-bd31-758f775e8ba1.jpg" alt="">
+    <h1 style="text-align: center;">Mappa TomTom</h1>
+        <!-- TOM TOM DIV mappa-->
+                    <div id="map" style="width:600px;height:550px;margin:0 auto;">
+                        <script>
+                    // Queste sono le coordinate centro della nostra mappa        
+                            const ONOLULU = { lng: -157.970000, lat: 21.4525000 };
+                    // Visualizzazione della mappa
+                            var map = tt.map({
+                                //scaricare l'api registrandosi sul sito TomTom for Developers
+                                key: 'QsQlPfJNdBRGexsuFkmikA9nQAmoUMRp',
+                                container: 'map',
+                                center: ONOLULU,
+                                zoom: 9.3
+                            });
+
+                    // lista array di posizioni (latitudine e longitudine)
+                        var posizioni = [
+                            { lat: 21.4000000, lng: -157.975000 },
+                            { lat: 21.4500000, lng: -157.985000 },
+                            { lat: 21.4900000, lng: -157.995000 },
+                            { lat: 21.5500000, lng: -157.999990 }
+                        ];
+                    //  facciamo partire il contatore da 1  
+                        count = 1;
+
+                    // crea maker per ogni posizioni (latitudine e longitudine)
+                        posizioni.forEach(posizione => {
+
+                    // crea casella di testo di info con testo personalizzabile
+                        var popup = new tt.Popup({ anchor: 'top' }).setText('testo personalizzabile');
+                    
+                    // Creiamo un marker (copia incolla del video tutorial presente sul sito sopraindicato)
+                        var createMarker = function(position) {
+                            var markerElement = document.createElement('div');
+                            markerElement.className = 'marker';
+                            markerElement.style.backgroudImage = 'url(alien.png)';
+                            marker = new tt.Marker({element: markerElement, anchor: 'center'})
+                            .setLngLat(position)
+                            .addTo(map);
+                            return marker
+                        }
+
+                        var marker = new tt.Marker().setLngLat(posizione).addTo(map);
+
+                        marker.setPopup(popup).togglePopup();
+                        count++;
+                    
+                    });
+                    
+                        </script>
+                    </div>
+        <!-- Chiusura DIV mappa-->
+</body>
+</html>
